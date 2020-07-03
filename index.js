@@ -63,25 +63,45 @@ inquirer
     const readMePage = `
 # ${data.title}
 
-## Description
+
+# Table of Contents
+1. [Description](#description)
+2. [Installation](#installation)
+3. [Usage](#usage)
+4. [Contribution](#contribution)
+5. [Test](#test)
+6. [Questions](#questions)
+
+
+## Description<a name="description"></a> 
 
 ${data.description}
 
-## Installation instructions
+## Installation<a name="installation"></a> 
 
 ${data.installation}
 
-## Usage Information
+## Usage Information<a name="usage"></a>
 
 ${data.usage}
 
-## Contribution Guidelines
+## Contribution Guidelines<a name="contribution"></a>
 
 ${data.contribution}
 
-## Test instructions
+## Test instructions<a name="test"></a>
 
 ${data.test}
+
+## Questions<a name="questions"></a>
+
+Please email any questions you may have!
+${data.email}
+
+Don't forge to visit my GitHub!
+<a href="https://www.github.com/${data.username}">Visit my GitHub</a>
+${data.name}
+
     `;
 
     writeFileAsync("README.md", readMePage).then(function (error) {
