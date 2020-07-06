@@ -2,8 +2,26 @@ var fs = require("fs");
 var inquirer = require("inquirer");
 const util = require("util");
 
-const readFileAsync = util.promisify(fs.readFile);
+//const readFileAsync = util.promisify(fs.readFile);
 const writeFileAsync = util.promisify(fs.writeFile);
+
+const licenses = [
+  {
+    name: "MIT",
+    url: "https://opensource.org/licenses/MIT",
+    id: "MIT",
+  },
+  {
+    name: "GNU General Public version 3",
+    url: "https://opensource.org/licenses/GPL-3.0",
+    id: "GPL-3.0-only",
+  },
+  {
+    name: "No License",
+    url: "",
+    id: "NOLICENSE",
+  },
+];
 
 inquirer
   .prompt([
@@ -43,10 +61,10 @@ inquirer
       name: "test",
     },
     {
-      type: "checkbox",
-      message: "Which licenses do you allow?",
+      type: "list",
+      message: "Choose a license",
       name: "license",
-      choices: ["HTML", "CSS", "Javascript", "None"],
+      choices: licenses.map((license) => license.name),
     },
     {
       type: "input",
@@ -60,6 +78,7 @@ inquirer
     },
   ])
   .then(function (data) {
+    printLicenseInfo(data);
     const readMePage = `
 # ${data.title}
 
@@ -70,7 +89,8 @@ inquirer
 3. [Usage](#usage)
 4. [Contribution](#contribution)
 5. [Test](#test)
-6. [Questions](#questions)
+6. [License](#license)
+7. [Questions](#questions)
 
 
 ## Description<a name="description"></a> 
@@ -93,6 +113,14 @@ ${data.contribution}
 
 ${data.test}
 
+## Licenses<a name="license"></a>
+
+${data.license}
+
+[![License](https://img.shields.io/badge/License-${licenses.id}%202.0-blue.svg)](${licenses.url})
+
+This project is licensed under the ${licenses.name} license.
+
 ## Questions<a name="questions"></a>
 
 Please email any questions you may have!
@@ -100,6 +128,7 @@ ${data.email}
 
 Don't forge to visit my GitHub!
 <a href="https://www.github.com/${data.username}">Visit my GitHub</a>
+
 ${data.name}
 
     `;
@@ -112,3 +141,11 @@ ${data.name}
       console.log("Success!");
     });
   });
+
+function printLicenseInfo({ licenseName }) {
+  const license = licenses.find((l) => l.name === licenseName);
+  const badge = `[![License](https://img.shields.io/badge/License-${licenses.id}%202.0-blue.svg)](${licenses.url})`;
+  const description = `This project is licensed under the ${licenses.name} license.`;
+  console.log("Badge:", badge);
+  console.log("Description:", description);
+}
