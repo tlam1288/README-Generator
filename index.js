@@ -82,6 +82,7 @@ inquirer
     const readMePage = `
 # ${data.title}
 
+By: ${data.name}
 
 # Table of Contents
 1. [Description](#description)
@@ -129,7 +130,7 @@ ${data.email}
 Don't forge to visit my GitHub!
 <a href="https://www.github.com/${data.username}">Visit my GitHub</a>
 
-${data.name}
+
 
     `;
 
