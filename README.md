@@ -14,5 +14,5 @@ String interpolation and template literals
 
 ## What the app looks like
 
-![](/assets/images/node2.png)
-![](/assets/images/node3.png)
+![](assets/node2.png)
+![](assets/node3.png)
